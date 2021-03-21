@@ -10,6 +10,11 @@ namespace SEOChecker.Services.GoogleSearch
 
 		public string ParseSearchResultForRanks(string searchResults, string url)
 		{
+			if (string.IsNullOrEmpty(url))
+			{
+				return "0";
+			}
+
 			List<int> searchRanks = new List<int>();
 			int i = 1;
 			MatchCollection results = Regex.Matches(searchResults, RegexPattern);

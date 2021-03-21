@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SEOChecker.Services.GoogleSearch
 {
@@ -16,19 +17,51 @@ namespace SEOChecker.Services.GoogleSearch
 			_parser = new GoogleParser();
 		}
 
+		public GoogleSearchService(ISearchEngineSearcher searcher, ISearchResultParser parser)
+		{
+			_searcher = searcher;
+			_parser = parser;
+		}
+
 		public string GetSearchRanks(string keywords, string url)
 		{
 			try
 			{
-				string searchResult = _searcher.GetSearchResult(keywords);
-				string parsedResult = _parser.ParseSearchResultForRanks(searchResult, url);
+				var errors = ValidateSearchInput(keywords, url);
 
-				return parsedResult;
+				if (errors.Count == 0)
+				{
+					string searchResult = _searcher.GetSearchResult(keywords);
+					string parsedResult = _parser.ParseSearchResultForRanks(searchResult, url);
+
+					return parsedResult;
+				}
+				else
+				{
+					return string.Join(Environment.NewLine, errors);
+				}
 			}
 			catch (Exception ex)
 			{
 				return string.Format("Error with Google Search results: {0}", ex.Message);
 			}
+		}
+
+		private List<string> ValidateSearchInput(string keywords, string url)
+		{
+			List<string> errors = new List<string>();
+
+			if (string.IsNullOrWhiteSpace(keywords))
+			{
+				errors.Add("Keywords cannot be blank");
+			}
+
+			if (string.IsNullOrWhiteSpace(url))
+			{
+				errors.Add("URL cannot be blank");
+			}
+
+			return errors;
 		}
 	}
 }

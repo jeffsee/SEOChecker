@@ -1,4 +1,5 @@
-﻿using SEOChecker.Services.GoogleSearch;
+﻿using SEOChecker.Services;
+using SEOChecker.Services.GoogleSearch;
 using System;
 using System.ComponentModel;
 using System.Windows.Input;
@@ -7,12 +8,21 @@ namespace SEOChecker.ViewModels
 {
 	public class SearchViewModel : INotifyPropertyChanged
 	{
-		public SearchViewModel()
+		private ISearchService searchService;
+		public ICommand SearchCommand { get; set; }
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		public SearchViewModel(): this(new GoogleSearchService()) { }
+
+		public SearchViewModel(ISearchService search)
 		{
 			keywords = "conveyancing software";
 			url = "www.smokeball.com.au";
 
 			SearchCommand = new RelayCommand(p => true, p => RunSearch());
+
+			searchService = search;
 		}
 
 		private string keywords;
@@ -48,10 +58,6 @@ namespace SEOChecker.ViewModels
 			}
 		}
 
-		public ICommand SearchCommand { get; set; }
-
-		public event PropertyChangedEventHandler PropertyChanged;
-
 		private void NotifyPropertyChanged(string propertyName = "")
 		{
 			if (PropertyChanged != null)
@@ -60,14 +66,13 @@ namespace SEOChecker.ViewModels
 			}
 		}
 
-		private void RunSearch()
+		public void RunSearch()
 		{
 			SearchResult = "";
 			Mouse.OverrideCursor = Cursors.Wait;
 
-			var searchService = new GoogleSearchService();
-
 			SearchResult = searchService.GetSearchRanks(Keywords, URL);
+
 			Mouse.OverrideCursor = Cursors.Arrow;
 		}
 	}
