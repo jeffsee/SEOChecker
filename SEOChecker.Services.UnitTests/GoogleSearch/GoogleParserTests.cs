@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SEOChecker.Services.GoogleSearch;
 
-namespace SEOChecker.Services.Tests.GoogleSearch
+namespace SEOChecker.Tests.GoogleSearch
 {
 	[TestClass]
 	public class GoogleParserTests

@@ -1,9 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using SEOChecker.Services;
 using SEOChecker.Services.GoogleSearch;
 using System;
 
-namespace SEOChecker.Services.Tests.GoogleSearch
+namespace SEOChecker.Tests.GoogleSearch
 {
 	[TestClass]
 	public class GoogleSearchServiceTests
@@ -72,6 +73,49 @@ namespace SEOChecker.Services.Tests.GoogleSearch
 
 			// Assert
 			Assert.AreEqual("3", result);
+		}
+
+		[TestMethod]
+		public void GoogleSearchService_ReturnsError_WithSearchException()
+		{
+			// Arrange
+			var keywords = "conveyancing software";
+			var url = "www.smokeball.com.au";
+
+			var searcher = new Mock<ISearchEngineSearcher>();
+			searcher.Setup(s => s.GetSearchResult(It.IsAny<string>())).Throws(new Exception("Exception in Searcher"));
+
+			var parser = new GoogleParser();
+
+			var service = new GoogleSearchService(searcher.Object, parser);
+
+			// Act
+			var result = service.GetSearchRanks(keywords, url);
+
+			// Assert
+			Assert.AreEqual("Error with Google Search results: Exception in Searcher", result);
+		}
+
+		[TestMethod]
+		public void GoogleSearchService_ReturnsError_WithParserException()
+		{
+			// Arrange
+			var keywords = "conveyancing software";
+			var url = "www.smokeball.com.au";
+
+			var searcher = new Mock<ISearchEngineSearcher>();
+			searcher.Setup(s => s.GetSearchResult(It.IsAny<string>())).Returns(TestHelper.GetTextFromFile("GoogleSearchResultForConveyancingSoftware.txt"));
+
+			var parser = new Mock<ISearchResultParser>();
+			parser.Setup(p => p.ParseSearchResultForRanks(It.IsAny<string>(), It.IsAny<string>())).Throws(new Exception("Exception in Parser"));
+
+			var service = new GoogleSearchService(searcher.Object, parser.Object);
+
+			// Act
+			var result = service.GetSearchRanks(keywords, url);
+
+			// Assert
+			Assert.AreEqual("Error with Google Search results: Exception in Parser", result);
 		}
 	}
 }

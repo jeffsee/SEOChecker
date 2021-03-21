@@ -8,8 +8,8 @@
     <ProjectGuid>{97AB4EAC-DB9F-48D5-AB71-B5A1EDCFC82C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SEOChecker.Services.Tests</RootNamespace>
-    <AssemblyName>SEOChecker.Services.Tests</AssemblyName>
+    <RootNamespace>SEOChecker.Tests</RootNamespace>
+    <AssemblyName>SEOChecker.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -66,6 +66,7 @@
     <Compile Include="GoogleSearch\GoogleSearchServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestHelper.cs" />
+    <Compile Include="ViewModel\SearchViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -74,6 +75,10 @@
     <ProjectReference Include="..\SEOChecker.Services\SEOChecker.Services.csproj">
       <Project>{b94b9609-8673-4fd6-981f-e354ac30bd96}</Project>
       <Name>SEOChecker.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SEOChecker\SEOChecker.csproj">
+      <Project>{468782D4-9B06-4CCE-B497-EBEF337CBC78}</Project>
+      <Name>SEOChecker</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

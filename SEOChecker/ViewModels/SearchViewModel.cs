@@ -1,11 +1,13 @@
 ﻿using SEOChecker.Services;
 using SEOChecker.Services.GoogleSearch;
-using System;
 using System.ComponentModel;
 using System.Windows.Input;
 
 namespace SEOChecker.ViewModels
 {
+	/// <summary>
+	/// View Model for the search
+	/// </summary>
 	public class SearchViewModel : INotifyPropertyChanged
 	{
 		private ISearchService searchService;
@@ -13,8 +15,18 @@ namespace SEOChecker.ViewModels
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
+		#region Constructors
+
+		/// <summary>
+		/// Constructor - passing in a new instance of the Google Search Service
+		/// </summary>
 		public SearchViewModel(): this(new GoogleSearchService()) { }
 
+		/// <summary>
+		/// Constructor - accepts a search service (primarily to allow for mocking for unit testing)
+		/// Sets up the default values for the search and the commands to bind
+		/// </summary>
+		/// <param name="search"></param>
 		public SearchViewModel(ISearchService search)
 		{
 			keywords = "conveyancing software";
@@ -25,6 +37,9 @@ namespace SEOChecker.ViewModels
 			searchService = search;
 		}
 
+		#endregion
+
+		#region Properties
 		private string keywords;
 		public string Keywords
 		{
@@ -57,6 +72,7 @@ namespace SEOChecker.ViewModels
 				NotifyPropertyChanged("SearchResult");
 			}
 		}
+		#endregion
 
 		private void NotifyPropertyChanged(string propertyName = "")
 		{
@@ -66,6 +82,9 @@ namespace SEOChecker.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// Runs the search and populates the SearchResult property
+		/// </summary>
 		public void RunSearch()
 		{
 			SearchResult = "";

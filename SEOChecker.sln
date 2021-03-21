@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEOChecker", "SEOChecker\SE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEOChecker.Services", "SEOChecker.Services\SEOChecker.Services.csproj", "{B94B9609-8673-4FD6-981F-E354AC30BD96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEOChecker.Services.Tests", "SEOChecker.Services.UnitTests\SEOChecker.Services.Tests.csproj", "{97AB4EAC-DB9F-48D5-AB71-B5A1EDCFC82C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEOChecker.Tests", "SEOChecker.Services.UnitTests\SEOChecker.Tests.csproj", "{97AB4EAC-DB9F-48D5-AB71-B5A1EDCFC82C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
