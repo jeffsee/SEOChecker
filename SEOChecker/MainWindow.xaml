@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:SEOChecker"
 		xmlns:vm="clr-namespace:SEOChecker.ViewModels"
         mc:Ignorable="d"
-        Title="SEO Checker" Height="400" Width="400">
+        Title="Search Engine Rank Finder" Height="400" Width="400">
 	<Grid>
 		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"></RowDefinition>
 			<RowDefinition Height="Auto"></RowDefinition>
 			<RowDefinition Height="Auto"></RowDefinition>
 			<RowDefinition Height="Auto"></RowDefinition>
@@ -20,15 +21,17 @@
 			<ColumnDefinition Width="2*"></ColumnDefinition>
 		</Grid.ColumnDefinitions>
 
-		<Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Content="SEO Checker" FontSize="24"></Label>
-		<Label Grid.Row="1" Grid.Column="0" Content="Keywords"></Label>
-		<Label Grid.Row="2" Grid.Column="0" Content="URL"></Label>
-		<Label Grid.Row="4" Grid.Column="0" Content="Search Results"></Label>
+		<Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Content="S.E.R.F." FontSize="24"></Label>
+		<Label Grid.Row="2" Grid.Column="0" Content="Keywords"></Label>
+		<Label Grid.Row="3" Grid.Column="0" Content="URL"></Label>
+		<Label Grid.Row="5" Grid.Column="0" Content="Search Results"></Label>
 
-		<TextBox Grid.Row="1" Grid.Column="1" Name="Keywords" Text="{Binding Keywords}" Margin="3" ></TextBox>
-		<TextBox Grid.Row="2" Grid.Column="1" Name="URL" Text="{Binding URL}" Margin="3"></TextBox>
-		<TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding SearchResult}" Margin="3" TextWrapping="Wrap"></TextBlock>
+		<TextBox Grid.Row="2" Grid.Column="1" Name="Keywords" Text="{Binding Keywords,ValidatesOnDataErrors=True}" Margin="3"></TextBox>
+		<TextBox Grid.Row="3" Grid.Column="1" Name="URL" Text="{Binding URL,ValidatesOnDataErrors=True}" Margin="3"></TextBox>
 
-		<Button Grid.Row="3" Grid.Column="1" Width="100" Margin="3" HorizontalAlignment="Right" Command="{Binding SearchCommand}">Run Search</Button>
+		<TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="Welcome to the Search Engine Rank Finder. This will perform a Google search using the given Keywords, and find the ranks (if any) that the given URL is found." Margin="3" TextWrapping="Wrap"></TextBlock>
+		<TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding SearchResult}" Margin="3" TextWrapping="Wrap"></TextBlock>
+
+		<Button Grid.Row="4" Grid.Column="1" Width="100" Margin="3" HorizontalAlignment="Right" Command="{Binding SearchCommand}" ToolTip="Perform the search and return the search rank(s)">Find Search Ranks</Button>
 	</Grid>
 </Window>

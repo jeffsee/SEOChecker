@@ -5,6 +5,11 @@ namespace SEOChecker.Tests
 {
 	public class TestHelper
 	{
+        /// <summary>
+        /// Returns the text from the given embedded resource file
+        /// </summary>
+        /// <param name="sampleFile"></param>
+        /// <returns></returns>
 		public static string GetTextFromFile(string sampleFile)
 		{
 			var asm = Assembly.GetExecutingAssembly();
